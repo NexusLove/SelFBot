@@ -1,5 +1,7 @@
 """File containing functions to execute"""
 import sys
+import subprocess
+import os
 
 
 class Commands():
@@ -35,3 +37,9 @@ class Commands():
         """Runs C++ code as whole file.
  Returns the human-readable verbose output"""
         pass
+
+    @staticmethod
+    def restart(args):
+        """Restarts the bot"""
+        subprocess.run(["python", os.path.join(
+            os.path.split(os.path.realpath(__file__))[0], "Start.py"), str(os.getpid())])
