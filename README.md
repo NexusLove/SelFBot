@@ -28,5 +28,7 @@ To run it, you have to create ``login.json`` file in ``db`` directory, with this
 }
 ```
 
+You can either run the bot like a module (``python .`` in bot's directory) or use ``Start.py``.
+
 Call the bot using prefix - if your prefix is ``!``, you can call ``info`` function like that: ``!info``
 Right now, the functionality is restricted for owner. I'll put an option to switch this behaviour in future.
