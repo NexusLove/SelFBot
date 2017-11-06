@@ -16,6 +16,8 @@ class GCCHelper():
 
         self.file_path = os.path.join(os.path.split(
             os.path.realpath(__file__))[0], "tmp")
+        if not os.path.exists(self.file_path):
+            os.makedirs(self.file_path)
         self.c_file_path = os.path.join(self.file_path, "tmp.c")
         self.cxx_file_path = os.path.join(self.file_path, "tmp.cpp")
         self.output_file = os.path.join(self.file_path, "tmp.exe")
