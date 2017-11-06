@@ -6,6 +6,16 @@ Actual functionality
 
 - Bot info
 - [in-dev] GCC support
+- Commands info (using docstrings)
+- Automatic command list generation
+- restart/eval/exec commands
+
+Incoming features:
+
+- cppreference and google search
+- Anything what goes throught my head
+
+Feel free to give me the ideas "what should i implement" using "issues". Or just create a feature, and make a pull request.
 
 To run it, you have to create ``login.json`` file in ``db`` directory, with this structure:
 
