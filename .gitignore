@@ -99,3 +99,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# Temporary directory
+tmp/
+
+# Do not commit my own login.json, for the sake of security.
+db/login.json
