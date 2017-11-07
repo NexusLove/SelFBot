@@ -12,26 +12,24 @@ class RequestParser():
 
         self.exit_cmds = ['kys', 'exit']
 
-    def parse_command(self, message):
+    def parse_command(self, message, ommit_prefix):
         """
             Returns the command
             (command, args) if the command has arguments
             (command, None) if it doesn't
             (None, None) if this is not a command
         """
-        if message.startswith(self.prefix):
-            message = message[len(self.prefix):]
+        if ommit_prefix or message.startswith(self.prefix):
+            message = message[len(self.prefix):] if not ommit_prefix else message
             arg_split = message.split(' ', 1)
             if (len(arg_split)) == 1:
                 return (arg_split[0], None)
-            else:
-                return (arg_split[0], arg_split[1])
-        else:
-            return (None, None)
+            return (arg_split[0], arg_split[1])
+        return (None, None)
 
-    def execute(self, message):
+    def execute(self, message, ommit_prefix=False):
         """Executes the command and returns result"""
-        command, args = self.parse_command(message)
+        command, args = self.parse_command(message, ommit_prefix)
 
         if command is None:
             return (None, ResponseFlag.WRONG_REQUEST)

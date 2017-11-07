@@ -2,10 +2,13 @@
 import sys
 import subprocess
 import os
+from GCCHelper import GCCHelper
 
 
 class Commands():
     """Class containing functionality of bot"""
+    gcc = GCCHelper()
+
     @staticmethod
     def info(args):
         """Gets info about script"""
@@ -19,7 +22,7 @@ class Commands():
     @staticmethod
     def runc(args):
         """Runs C code snippet and returns the human-readable verbose output"""
-        pass
+        data = Commands.gcc.run_c_code(args)
 
     @staticmethod
     def runcxx(args):
@@ -40,6 +43,8 @@ class Commands():
 
     @staticmethod
     def restart(args):
-        """Restarts the bot"""
+        """Restarts the bot in mode sent by arguments"""
+        if args is None or args == "":
+            return "You have to enter restart mode!"
         subprocess.run(["python", os.path.join(
-            os.path.split(os.path.realpath(__file__))[0], "Start.py"), str(os.getpid())])
+            os.path.split(os.path.realpath(__file__))[0], "Restart.py"), args, str(os.getpid())])

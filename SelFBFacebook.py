@@ -13,7 +13,8 @@ class SelFB(Client):
     """Main class of the selfbot"""
 
     def __init__(self):
-        with open(os.path.join(os.path.split(os.path.realpath(__file__))[0], 'db/login.json')) as login_data:
+        with open(os.path.join(os.path.split(os.path.realpath(__file__))[0],
+                               'db/login.json')) as login_data:
             self.core_data = json.load(login_data)
 
         self.parser = RequestParser(self.core_data["prefix"])
@@ -26,6 +27,7 @@ class SelFB(Client):
         self.stopListening()
 
     def command_not_found(self, thread_id, thread_type):
+        """Sends a "command not found" message"""
         info_msg = models.Message(
             "[Command not found! Use "
             + self.core_data["prefix"] + "list_cmd to show available commands]")

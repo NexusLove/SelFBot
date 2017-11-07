@@ -120,15 +120,3 @@ class GCCHelper():
         https://github.com/LyricLy/hastebin.py/blob/master/hastebin/hastebin.py"""
         post = requests.post("https://hastebin.com/documents", data=content)
         return "https://hastebin.com/" + post.json()["key"]
-
-
-if __name__ == "__main__":
-    HELPER = GCCHelper()
-    print(HELPER.run_c_code(r'puts("Hello, world!");'))
-    print(HELPER.run_cxx_code(r'std::cout << "Hello, world from C++!\n";'))
-    print(HELPER.run_c_code(r'test'))
-    print(HELPER.run_cxx_code(r'std::cout << '))
-    print(HELPER.compile_and_run_c(r'''#include <stdio.h>
-    int main() { puts("Hi there (C)!"); }'''))
-    print(HELPER.compile_and_run_cxx(r'''#include <iostream>
-    int main() { std::cout << "Hello there from C++!\n"; }'''))
