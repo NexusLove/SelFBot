@@ -2,12 +2,11 @@
 import sys
 import subprocess
 import os
-from GCCHelper import GCCHelper
+import GCCHelper
 
 
 class Commands():
     """Class containing functionality of bot"""
-    gcc = GCCHelper()
 
     @staticmethod
     def info(args):
@@ -22,7 +21,7 @@ class Commands():
     @staticmethod
     def runc(args):
         """Runs C code snippet and returns the human-readable verbose output"""
-        data = Commands.gcc.run_c_code(args)
+        data = GCCHelper.run_c_code(args)
 
     @staticmethod
     def runcxx(args):
