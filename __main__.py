@@ -1,5 +1,6 @@
 """Main module file"""
 import sys
+
 from SelFBFacebook import SelFB as SelfbotFacebook
 from SelFBLocal import SelFB as SelfbotLocal
 

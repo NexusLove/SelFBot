@@ -3,10 +3,11 @@
 """
 import json
 import os
+
 from fbchat import models, Client
 
-from RequestParser import RequestParser
 from Flags import ResponseFlag
+from RequestParser import RequestParser
 
 
 class SelFB(Client):

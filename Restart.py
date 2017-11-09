@@ -1,4 +1,9 @@
-"""Script restarting the bot"""
+"""
+Script (re)starting the bot.
+Usage: python Restart.py [mode] (PID)
+mode - mode in which bot will be started
+PID - PID of process to kill
+"""
 import os
 import signal
 import subprocess
