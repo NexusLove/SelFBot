@@ -6,7 +6,7 @@ from Flags import ResponseFlag
 from RequestParser import RequestParser
 
 
-class SelFB():
+class SelFB:
     """Selfbot local runner"""
 
     def __init__(self):

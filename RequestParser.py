@@ -12,12 +12,15 @@ class RequestParser:
 
         self.exit_cmds = ['kys', 'exit']
 
-    def parse_command(self, message, ommit_prefix):
+    def parse_command(self, message: str, ommit_prefix: bool = False) -> (str, str):
         """
             Returns the command
-            (command, args) if the command has arguments
-            (command, None) if it doesn't
-            (None, None) if this is not a command
+            :rtype: str, str
+            :param message: message to parse
+            :param ommit_prefix: True if prefix should be ignored
+            :return: tuple with command and arguments.
+            Will return (command, None) if there is no arguments
+            Will return (None, None) if command is invalid
         """
         if ommit_prefix or message.startswith(self.prefix):
             message = message[len(self.prefix):] if not ommit_prefix else message
@@ -27,8 +30,13 @@ class RequestParser:
             return arg_split[0], arg_split[1]
         return None, None
 
-    def execute(self, message, ommit_prefix=False):
-        """Executes the command and returns result"""
+    def execute(self, message: str, ommit_prefix: bool = False) -> (str, ResponseFlag):
+        """Executes the command and returns result
+        :rtype: str, ResponseFlag
+        :param message: Message to execute
+        :param ommit_prefix: True if prefix should be ommited
+        :return: Tuple with return message and flag
+        """
         command, args = self.parse_command(message, ommit_prefix)
 
         if command is None:
