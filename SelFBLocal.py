@@ -2,8 +2,8 @@
 import json
 import os
 
-from RequestParser import RequestParser
 from Flags import ResponseFlag
+from RequestParser import RequestParser
 
 
 class SelFB():
@@ -16,12 +16,14 @@ class SelFB():
 
         self.parser = RequestParser(self.core_data["prefix"])
 
-    def kill(self):
+    @staticmethod
+    def kill():
         """Stops the bot"""
         print("Stopping the bot...")
         exit(0)
 
-    def command_not_found(self):
+    @staticmethod
+    def command_not_found():
         """Returns "command not found" message"""
         print("Command not found - use list_cmd to print list of commands")
 

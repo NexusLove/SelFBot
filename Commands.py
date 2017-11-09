@@ -1,11 +1,12 @@
 """File containing functions to execute"""
-import sys
-import subprocess
 import os
+import subprocess
+import sys
+
 import GCCHelper
 
 
-class Commands():
+class Commands:
     """Class containing functionality of bot"""
 
     @staticmethod

@@ -1,6 +1,7 @@
 """GCC executing library"""
 import os
 import subprocess
+
 import requests
 
 C_COMPILER = "gcc"
@@ -45,7 +46,7 @@ def run_cxx_code(code):
 
 def compile_and_run_c(code):
     """Executes the C code. Returns dict with keys 'compilation',
-    and (if compilation was sucessfull) 'execution'.
+    and (if compilation was successful) 'execution'.
     Both keys contain keys 'stdout', 'stderr' and 'retcode'."""
     # print("Code: {}\n".format(code))
 
@@ -75,7 +76,7 @@ def compile_and_run_c(code):
 
 def compile_and_run_cxx(code):
     """Executes the C++ code. Returns dict with keys 'compilation',
-    and (if compilation was sucessfull) 'execution'.
+    and (if compilation was successful) 'execution'.
     Both keys contain keys 'stdout', 'stderr' and 'retcode'."""
     # print("Code: {}\n".format(code))
 
@@ -115,7 +116,7 @@ def run_and_get_output(arguments):
 
 
 def post_on_hastebin(content):
-    """Helper funciton.
+    """Helper function.
     Posts the stuff on Hastebin, returns URL.
     Yea, this is copy&paste from hastebin.py
     https://github.com/LyricLy/hastebin.py/blob/master/hastebin/hastebin.py"""
