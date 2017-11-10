@@ -37,12 +37,12 @@ class CommandExec:
         """Runs the command
         :param command: Command to run
         :param args: Arguments for this command
-        :return: Command execution result
+        :return: Command execution result or "" if it doesn't exists
         :rtype: str
         """
         if not self.command_exists(command):
             return ""
 
         if args:
-            return self.cmd_list[command](args)
-        return self.cmd_list[command]()
+            return str(self.cmd_list[command](args))
+        return str(self.cmd_list[command]())
