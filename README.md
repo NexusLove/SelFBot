@@ -1,34 +1,38 @@
 # SelFBot
 
-Selfbot for facebook with various functionality.
+Selfbot with various functionality
 
-Actual functionality
+**Bot is in alpha status, so it lacks functionality for now.**
 
-- Bot info
-- [in-dev] GCC support
-- Commands info (using docstrings)
-- Automatic command list generation
-- restart/eval/exec commands
+Functions, for now:
+- Bot/system basic info
+- [in-dev] GCC C/C++ compilation support
+- Command info (docstrings)
+- Basic Python commands - eval and exec, with all math package stuff
+- Restarting
 
-Incoming features:
+Next features to be implemented:
+- Google Search support
+- cppreference.com search support
+- Permission system, to allow multi-user usage on fbchat
 
-- cppreference and google search
-- Anything what goes throught my head
+Feel free to contribute, either using pull requests or sending ideas or bugs using *Issues*
 
-Feel free to give me the ideas "what should i implement" using "issues". Or just create a feature, and make a pull request.
+## Usage
 
-To run it, you have to create ``login.json`` file in ``db`` directory, with this structure:
-
+First, create ``db`` directory next to ``__main__.py``. Put ``login.json`` file there, with this content:
 ```json
 {
+    "prefix": "bot_prefix"
+
     "email": "facebook_email",
     "pwd": "facebook_password",
     "owner": "bot_owner_id",
-    "prefix": "bot_prefix"
 }
 ```
 
-You can either run the bot like a module (``python .`` in bot's directory) or use ``Start.py``.
+*Note: the Facebook stuff will be moved to separate object soon*
 
-Call the bot using prefix - if your prefix is ``!``, you can call ``info`` function like that: ``!info``
-Right now, the functionality is restricted for owner. I'll put an option to switch this behaviour in future.
+And then, run the bot in one of the modes:
+- ``local`` mode will run the bot in command prompt. **Warning**: restarting bot there may break the command line (happens in PowerShell)
+- ``fbchat`` mode will run bot as Facebook user, using chat as interface. For now, functionality is restricted to user with ID from ``owner`` key. You have to use ``prefix`` in order to execute a command.
