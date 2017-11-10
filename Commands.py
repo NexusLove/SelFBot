@@ -3,9 +3,9 @@ import os
 import subprocess
 import sys
 
-from GCCHelper import GCCHelper
+from GCCRunner import GCCRunner
 
-GCCRUNNER = GCCHelper()
+GCCRUNNER = GCCRunner()
 
 
 def info(args):

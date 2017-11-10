@@ -5,7 +5,7 @@ import subprocess
 import requests
 
 
-class GCCHelper:
+class GCCRunner:
     """GCC execution helper class"""
 
     def __init__(self):
@@ -19,18 +19,18 @@ class GCCHelper:
             os.path.realpath(__file__))[0], "tmp")
         if not os.path.exists(self.FILE_PATH):
             os.makedirs(self.FILE_PATH)
-            self.C_FILE_PATH = os.path.join(self.FILE_PATH, "tmp.c")
-            self.CXX_FILE_PATH = os.path.join(self.FILE_PATH, "tmp.cpp")
+        self.C_FILE_PATH = os.path.join(self.FILE_PATH, "tmp.c")
+        self.CXX_FILE_PATH = os.path.join(self.FILE_PATH, "tmp.cpp")
         self.OUTPUT_FILE = os.path.join(self.FILE_PATH, "tmp.exe")
 
         self.C_HEADERS = ["stdio.h", "time.h", "stdlib.h", "string.h"]
         self.CXX_HEADERS = ["iostream", "array", "vector",
                             "algorithm", "string", "chrono", "random"]
 
-        self.C_HEADERS_CODE = '\n'.join(["#include <{}>".format(x) for x in self.C_HEADERS])
-        self.CXX_HEADERS_CODE = '\n'.join(["#include <{}>".format(x) for x in self.CXX_HEADERS])
+        self.C_HEADERS_CODE = '\n'.join(["#include <{}>".format(x) for x in self.C_HEADERS]) + '\n'
+        self.CXX_HEADERS_CODE = '\n'.join(["#include <{}>".format(x) for x in self.CXX_HEADERS]) + '\n'
 
-        self.CODE_COMMENT = "// Generated using GCCHelper by SteelPh0enix\n"
+        self.CODE_COMMENT = "// Generated using GCCRunner by SteelPh0enix\n"
 
     def run_c_code(self, code: str) -> dict:
         """Runs C code in main() function
@@ -38,7 +38,7 @@ class GCCHelper:
         :param code: Code to execute
         :return: look: compile_and_run_c"""
 
-        runcode = self.CODE_COMMENT + self.C_HEADERS_CODE + "\nint main() {\n{0}\n}\n".format(code)
+        runcode = self.CODE_COMMENT + self.C_HEADERS_CODE + "\nint main() {\n" + code + "\n}\n"
         return self.compile_and_run_c(runcode)
 
     def run_cxx_code(self, code: str) -> dict:
@@ -47,7 +47,7 @@ class GCCHelper:
         :param code: Code to execute
         :return: look: compile_and_run_cxx"""
 
-        runcode = self.CODE_COMMENT + self.CXX_HEADERS_CODE + "\nint main() {\n{0}\n}\n".format(code)
+        runcode = self.CODE_COMMENT + self.CXX_HEADERS_CODE + "\nint main() {\n" + code + "\n}\n"
         return self.compile_and_run_cxx(runcode)
 
     def compile_and_run_c(self, code: str) -> dict:
@@ -68,7 +68,7 @@ class GCCHelper:
                 {'stdout': comp_stdout, 'stderr': comp_stderr, 'retcode': comp_code}
         }
 
-        if not comp_code:  # there was an error during compilation - return code != 0
+        if comp_code != 0:
             return ret_dict
 
         exec_stdout, exec_stderr, exec_code = run_and_get_output(
@@ -98,7 +98,7 @@ class GCCHelper:
                 {'stdout': comp_stdout, 'stderr': comp_stderr, 'retcode': comp_code}
         }
 
-        if not comp_code:  # there was an error during compilation - return code != 0
+        if comp_code != 0:
             return ret_dict
 
         exec_stdout, exec_stderr, exec_code = run_and_get_output(
@@ -115,8 +115,7 @@ def run_and_get_output(arguments: list) -> tuple:
     """Runs the program and returns (stdout, stderr, return_code) tuple
     :rtype: tuple(str, str, int)
     :param arguments: list with executable path and it's arguments
-    :return: Tuple with stdout and stderr content, and return code of program
-    """
+    :return: Tuple with stdout and stderr content, and return code of program"""
     proc = subprocess.Popen(
         arguments, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = proc.communicate()

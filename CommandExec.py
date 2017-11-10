@@ -1,5 +1,5 @@
 """Module containing the command executing class"""
-from Commands import Commands
+import Commands
 
 
 class CommandExec:
