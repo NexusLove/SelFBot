@@ -23,7 +23,7 @@ Feel free to contribute, either using pull requests or sending ideas or bugs usi
 First, create ``db`` directory next to ``__main__.py``. Put ``login.json`` file there, with this content:
 ```json
 {
-    "prefix": "bot_prefix"
+    "prefix": "bot_prefix",
 
     "email": "facebook_email",
     "pwd": "facebook_password",
