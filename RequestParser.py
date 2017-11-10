@@ -48,4 +48,6 @@ class RequestParser:
         if not self.executor.command_exists(command):
             return None, ResponseFlag.NOT_FOUND
 
+        if args:
+            return self.executor.run(command, ""), ResponseFlag.OKAY
         return self.executor.run(command, args), ResponseFlag.OKAY

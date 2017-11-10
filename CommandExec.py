@@ -26,17 +26,23 @@ class CommandExec:
         """
         return cmd in self.cmd_list
 
-    def get_cmd_list(self, arg: None) -> str:
+    def get_cmd_list(self) -> str:
         """Returns the commands list
         :rtype: str
-        :param arg: Not used, required for bot call
         :return: String with list of commands
         """
         return str([key for key in self.cmd_list])
 
     def run(self, command: str, args: str) -> str:
-        """Runs the command"""
+        """Runs the command
+        :param command: Command to run
+        :param args: Arguments for this command
+        :return: Command execution result
+        :rtype: str
+        """
         if not self.command_exists(command):
             return ""
 
-        return self.cmd_list[command](args)
+        if args:
+            return self.cmd_list[command](args)
+        return self.cmd_list[command]()
