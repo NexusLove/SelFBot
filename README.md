@@ -27,7 +27,7 @@ First, create ``db`` directory next to ``__main__.py``. Put ``login.json`` file 
 
     "email": "facebook_email",
     "pwd": "facebook_password",
-    "owner": "bot_owner_id",
+    "owner": "bot_owner_id"
 }
 ```
 
