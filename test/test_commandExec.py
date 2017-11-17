@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from CommandExec import CommandExec
+from Commands import info
 
 
 class TestCommandExec(TestCase):
@@ -14,3 +15,7 @@ class TestCommandExec(TestCase):
         self.assertEqual(executor.run("eval", "2+2"), "4", "Executor couldn't run 'eval' properly")
         self.assertEqual(executor.run("non_existing_command", ""), "",
                          "Executor didn't returned empty string at non-existing command call")
+
+    def test_info(self):
+        executor = CommandExec()
+        self.assertEqual(executor.run('info', ''), info())

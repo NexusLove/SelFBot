@@ -26,7 +26,7 @@ class RequestParser:
             message = message[len(self.prefix):] if not ommit_prefix else message
             arg_split = message.split(' ', 1)
             if (len(arg_split)) == 1:
-                return arg_split[0], None
+                return arg_split[0], ""
             return arg_split[0], arg_split[1]
         return None, None
 
@@ -48,6 +48,4 @@ class RequestParser:
         if not self.executor.command_exists(command):
             return None, ResponseFlag.NOT_FOUND
 
-        if args:
-            return self.executor.run(command, ""), ResponseFlag.OKAY
         return self.executor.run(command, args), ResponseFlag.OKAY
