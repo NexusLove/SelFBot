@@ -35,4 +35,4 @@ First, create ``db`` directory next to ``__main__.py``. Put ``login.json`` file 
 
 And then, run the bot in one of the modes:
 - ``local`` mode will run the bot in command prompt. **Warning**: restarting bot there may break the command line (happens in PowerShell)
-- ``fbchat`` mode will run bot as Facebook user, using chat as interface. For now, functionality is restricted to user with ID from ``owner`` key. You have to use ``prefix`` in order to execute a command.
+- ``fbchat`` mode will run bot as Facebook user, using chat as interface. For now, functionality is restricted to user with ID equal ``owner`` key. You have to use ``prefix`` in order to execute a command.

@@ -3,12 +3,12 @@ import os
 import subprocess
 import sys
 
-from GCCRunner import GCCRunner
+from GCCRunner import GCCRunner as __GCCRunner
 
-GCCRUNNER = GCCRunner()
+_GCCRUNNER = __GCCRunner()
 
 
-def info(args):
+def info(args=None):
     """Gets info about script"""
     if args is not None:
         docstring = getattr(sys.modules[__name__], str(args)).__doc__
@@ -20,7 +20,7 @@ def info(args):
 
 def runc(code):
     """Runs C code snippet and returns the human-readable verbose output"""
-    data = GCCRUNNER.run_c_code(code)
+    data = _GCCRUNNER.run_c_code(code)
 
 
 def runcxx(code):
