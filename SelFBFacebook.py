@@ -49,5 +49,5 @@ class SelFB(Client):
         elif ResponseFlag.WRONG_REQUEST in flag:
             return
         elif ResponseFlag.OKAY in flag:
-            send_msg = models.Message('[' + str(response) + ']')
+            send_msg = models.Message('[' + str(response).rstrip() + ']')
             self.send(send_msg, thread_id, thread_type)

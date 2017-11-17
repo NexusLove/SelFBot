@@ -1,6 +1,6 @@
 """Module containing the command executing class"""
 import Commands
-
+from math import *
 
 class CommandExec:
     """Class executing the command"""
@@ -10,8 +10,8 @@ class CommandExec:
             getattr(Commands, func)) and not func.startswith("__")]
 
         self.cmd_list = {
-            "eval": eval,
-            "exec": exec,
+            "eval":     eval,
+            "exec":     exec,
             "list_cmd": self.get_cmd_list
         }
 

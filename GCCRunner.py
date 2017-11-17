@@ -27,33 +27,37 @@ class GCCRunner:
         self.CXX_HEADERS = ["iostream", "array", "vector",
                             "algorithm", "string", "chrono", "random"]
 
-        self.C_HEADERS_CODE = '\n'.join(["#include <{}>".format(x) for x in self.C_HEADERS]) + '\n'
-        self.CXX_HEADERS_CODE = '\n'.join(["#include <{}>".format(x) for x in self.CXX_HEADERS]) + '\n'
+        self.C_HEADERS_CODE = '\n'.join(
+            ["#include <{}>".format(x) for x in self.C_HEADERS]) + '\n'
+        self.CXX_HEADERS_CODE = '\n'.join(
+            ["#include <{}>".format(x) for x in self.CXX_HEADERS]) + '\n'
+        self.CXX_HEADERS_CODE = '\n'.join(
+            ["#include <{}>".format(x) for x in self.CXX_HEADERS]) + '\n'
 
         self.CODE_COMMENT = "// Generated using GCCRunner by SteelPh0enix\n"
 
     def run_c_code(self, code: str) -> dict:
         """Runs C code in main() function
         :rtype: dict
-        :param code: Code to execute
-        :return: look: compile_and_run_c"""
+        :param code: Code to execute"""
 
-        runcode = self.CODE_COMMENT + self.C_HEADERS_CODE + "\nint main() {\n" + code + "\n}\n"
+        runcode = self.CODE_COMMENT + self.C_HEADERS_CODE + \
+                  "\nint main() {\n" + code + "\n}\n"
         return self.compile_and_run_c(runcode)
 
     def run_cxx_code(self, code: str) -> dict:
-        """Runs C++ code in main() function
+        """Runs C + + code in main() function
         :rtype: dict
-        :param code: Code to execute
         :return: look: compile_and_run_cxx"""
 
-        runcode = self.CODE_COMMENT + self.CXX_HEADERS_CODE + "\nint main() {\n" + code + "\n}\n"
+        runcode = self.CODE_COMMENT + self.CXX_HEADERS_CODE + \
+                  "\nint main() {\n" + code + "\n}\n"
         return self.compile_and_run_cxx(runcode)
 
     def compile_and_run_c(self, code: str) -> dict:
         """Executes the C code.
         :rtype: dict
-        :param code: Code to execute (full file)
+        :param code: Code to execute(full file)
         :return: dict with objects 'compilation', and (if compilation was successful) 'execution'.
         Both objects contain keys 'stdout', 'stderr' and 'retcode'."""
 
@@ -65,7 +69,7 @@ class GCCRunner:
 
         ret_dict = {
             'compilation':
-                {'stdout': comp_stdout, 'stderr': comp_stderr, 'retcode': comp_code}
+                { 'stdout': comp_stdout, 'stderr': comp_stderr.replace(self.C_FILE_PATH + ':', ""), 'retcode': comp_code }
         }
 
         if comp_code != 0:
@@ -81,9 +85,9 @@ class GCCRunner:
         return ret_dict
 
     def compile_and_run_cxx(self, code: str) -> dict:
-        """Executes the C++ code.
+        """Executes the C + + code.
         :rtype: dict
-        :param code: Code to execute (full file)
+        :param code: Code to execute(full file)
         :return: dict with objects 'compilation', and (if compilation was successful) 'execution'.
         Both objects contain keys 'stdout', 'stderr' and 'retcode'."""
 
@@ -95,7 +99,7 @@ class GCCRunner:
 
         ret_dict = {
             'compilation':
-                {'stdout': comp_stdout, 'stderr': comp_stderr, 'retcode': comp_code}
+                { 'stdout': comp_stdout, 'stderr': comp_stderr.replace(self.CXX_FILE_PATH + ':', ""), 'retcode': comp_code }
         }
 
         if comp_code != 0:
@@ -112,7 +116,7 @@ class GCCRunner:
 
 
 def run_and_get_output(arguments: list) -> tuple:
-    """Runs the program and returns (stdout, stderr, return_code) tuple
+    """Runs the program and returns(stdout, stderr, return_code) tuple
     :rtype: tuple(str, str, int)
     :param arguments: list with executable path and it's arguments
     :return: Tuple with stdout and stderr content, and return code of program"""
@@ -125,10 +129,29 @@ def run_and_get_output(arguments: list) -> tuple:
 def post_on_hastebin(content: str) -> str:
     """Helper function.
     Posts the stuff on Hastebin, returns URL.
-    Yea, this is copy&paste from hastebin.py
-    https://github.com/LyricLy/hastebin.py/blob/master/hastebin/hastebin.py
-    :rtype: str
-    :param content: Text to be put on Hastebin
-    :return: Link to the paste"""
-    post = requests.post("https://hastebin.com/documents", data=content)
+    Yea, this is copy & paste from hastebin.py
+    https://github.com/LyricLy/hastebin.py/blob/master/hastebin/hastebin.py"""
+    post = requests.post("https://hastebin.com/documents", data=content.encode())
     return str("https://hastebin.com/" + post.json()["key"])
+
+
+def prepare_message(data: dict, max_len=50) -> str:
+    """Function preparing the compilation data in human-readable form"""
+
+    return_message = ''
+    if data['compilation']['retcode'] != 0:
+        return_message += 'Compilation error! Code: {}\n'.format(data['compilation']['retcode'])
+        if len(data['compilation']['stderr']) > max_len:
+            return_message += 'Log too long, go there: {}\n'.format(post_on_hastebin(data['compilation']['stderr']))
+        else:
+            return_message += 'Log: "{}"\n'.format(data['compilation']['stderr'])
+    else:
+        if len(data['execution']['stdout']) > max_len:
+            return_message += 'Output too long, you can find it here: {}\n'.format(
+                post_on_hastebin(data['execution']['stdout']))
+        else:
+            return_message += 'Output: "{}"\n'.format(data['execution']['stdout'])
+        if data['execution']['retcode'] != 0:
+            return_message += 'Return code is {}\n'.format(data['execution']['retcode'])
+
+    return return_message
