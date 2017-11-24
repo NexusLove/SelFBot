@@ -1,6 +1,6 @@
 """Selfbot's request parser"""
 from CommandExec import CommandExec
-from Flags import ResponseFlag
+from Flags import ResponseFlag, MessageEventFlag
 
 
 class RequestParser:
@@ -11,6 +11,8 @@ class RequestParser:
         self.executor = CommandExec()
 
         self.exit_cmds = ['kys', 'exit']
+
+        self.event_flag = MessageEventFlag.NONE
 
     def parse_command(self, message: str, ommit_prefix: bool = False) -> (str, str):
         """
@@ -48,4 +50,9 @@ class RequestParser:
         if not self.executor.command_exists(command):
             return None, ResponseFlag.NOT_FOUND
 
-        return self.executor.run(command, args), ResponseFlag.OKAY
+        return_data = self.executor.run(command, args)
+        if isinstance(return_data, MessageEventFlag):
+            self.event_flag = return_data
+            return "OK", ResponseFlag.OKAY
+
+        return str(return_data), ResponseFlag.OKAY

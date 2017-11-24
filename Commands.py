@@ -7,6 +7,8 @@ from GCCRunner import GCCRunner as __GCCRunner
 from GCCRunner import prepare_message as __prepare_message
 from GCCRunner import post_on_hastebin
 
+from Flags import MessageEventFlag
+
 _GCCRUNNER = __GCCRunner()
 # Following stuff is just for the sake of this script. I preferred to keep it inside GCCRunner object,
 # instead of making new variable
@@ -53,3 +55,13 @@ def restart(arg):
         return "You have to enter restart mode!"
     subprocess.run(["python", os.path.join(
         os.path.split(os.path.realpath(__file__))[0], "Restart.py"), arg, str(os.getpid())])
+
+
+def angery():
+    """Turns angery on"""
+    return MessageEventFlag.ANGERY
+
+
+def calm():
+    """Turns angery off"""
+    return MessageEventFlag.NONE

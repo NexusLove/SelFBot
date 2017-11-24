@@ -9,3 +9,9 @@ class ResponseFlag(Flag):
     NOT_FOUND = auto()
     WRONG_REQUEST = auto()
     KYS = auto()
+
+
+@unique
+class MessageEventFlag(Flag):
+    NONE = auto()
+    ANGERY = auto()

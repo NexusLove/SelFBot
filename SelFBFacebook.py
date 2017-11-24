@@ -6,7 +6,7 @@ import os
 
 from fbchat import models, Client
 
-from Flags import ResponseFlag
+from Flags import ResponseFlag, MessageEventFlag
 from RequestParser import RequestParser
 
 
@@ -34,9 +34,14 @@ class SelFB(Client):
             + self.core_data["prefix"] + "list_cmd to show available commands]")
         self.send(info_msg, thread_id, thread_type)
 
+    def message_event(self, message, flag):
+        if MessageEventFlag.ANGERY in flag:
+            self.reactToMessage(message.uid, models.MessageReaction.ANGRY)
+
     def onMessage(self, mid=None, author_id=None, message=None, message_object=None,
                   thread_id=None, thread_type=models.ThreadType.USER, ts=None, metadata=None,
                   msg=None):
+        self.message_event(message_object, self.parser.event_flag)
         if message_object.author != self.core_data["owner"] or message_object.text.startswith('['):
             return
 

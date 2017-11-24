@@ -44,5 +44,5 @@ class CommandExec:
             return ""
 
         if args:
-            return str(self.cmd_list[command](args))
-        return str(self.cmd_list[command]())
+            return self.cmd_list[command](args)
+        return self.cmd_list[command]()
